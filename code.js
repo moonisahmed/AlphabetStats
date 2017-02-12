@@ -162,10 +162,7 @@ function getStats(txt) {
                         palindromelist.push(array[i]);
                     }
                 }
-                    
-               
 
-                
                 }
             
         
@@ -186,6 +183,10 @@ function getStats(txt) {
         for(let j in wordLength)
             {
                 sum = sum + parseFloat(wordLength[j]);
+            }
+        if(wordLength.length == 0)
+            {
+                return 0;
             }
         return sum/wordLength.length;
     }
