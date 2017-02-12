@@ -47,7 +47,65 @@ function getStats(txt) {
     
     
     function mostFrequentWordsList(array){
+        let suspectCounter = 0;
+        let frequentWordsList = [];
+        let frequentWordsCounter =[];
+        let frequentWords = [];
+        let alreadyChecked = false;
+        let largestNumber = 0;
+        let count = 0;
+        let index = 0;
+        for (let k in array){
+            array[k].toLowerCase();
+        }
+        array.sort();
+      
+        for(let i = 0; i<array.length;i++){
+            suspectCounter = 0;
+            alreadyChecked = false;
+            for(let m = 0; m < frequentWordsList.length;m++)
+                {
+                    if(frequentWordsList[m] === array[i])
+                    {
+                        alreadyChecked =true;
+
+                    }
+                   
+                }
+            if(!alreadyChecked)
+            {
+                for ( let j =0; j < array.length; j++){
+                if (array[i] === array[j])
+                    {
+                        suspectCounter++;
+                    }
+                }
+                frequentWordsList.push(array[i]);
+                frequentWordsCounter.push(suspectCounter);
+            }
+        }
         
+        while(count < 10 && frequentWordsList.length > 0)
+            {
+                largestNumber = 0;
+                index = 0;
+                for(let i in frequentWordsList)
+                    {
+                        if(largestNumber < frequentWordsCounter[i])
+                        {
+                            largestNumber = frequentWordsCounter[i];
+                            index = i;
+                        }
+                        
+                    }
+                frequentWords.push(frequentWordsList[index]+"("+frequentWordsCounter[index]+")");
+                count++;
+                frequentWordsList.splice(index,1);
+                frequentWordsCounter.splice(index,1);
+            
+            }
+        return frequentWords;
+           
     }
 
     function longestWordsList(array){
@@ -57,14 +115,16 @@ function getStats(txt) {
         let alreadyExist = false;
         let longestWord = 0;
         let longestWordIndex = 0;
+        let arraylist = [];
         array.sort();
         
         for(let i in array)
             {
                 array[i].toLowerCase();
                 wordLength.push(array[i].length);
+                arraylist[i] = array[i];
             }
-        while(count < 10 && array.length > 0 )
+        while(count < 10 && arraylist.length > 0 )
             {
                 alreadyExist = false;
                 longestWordIndex = 0;
@@ -81,7 +141,7 @@ function getStats(txt) {
 
                 for(let k = 0; k< wordsList.length; k++)
                 {
-                    if(wordsList[k] === array[longestWordIndex])
+                    if(wordsList[k] === arraylist[longestWordIndex])
                     {
                         alreadyExist = true;
                     }
@@ -89,12 +149,12 @@ function getStats(txt) {
 
                 if(array[longestWordIndex] != null && !alreadyExist)
                 {                        
-                    wordsList.push(array[longestWordIndex]);
+                    wordsList.push(arraylist[longestWordIndex]);
                     count++;
                 }
 
                 wordLength.splice(longestWordIndex,1);
-                array.splice(longestWordIndex,1);
+                arraylist.splice(longestWordIndex,1);
             }
             
         return wordsList;
@@ -217,7 +277,7 @@ function getStats(txt) {
     }
     
     return {
-        nChars: nChars.length,
+        nChars: nChars,
         nWords: nWords.length,
         nLines: nLines.length,
         nNonEmptyLines: nNonEmptyLines.length,
@@ -225,7 +285,7 @@ function getStats(txt) {
         maxLineLength: maxLineLength,
         palindromes: palindromes,
         longestWords: longestWords,
-        mostFrequentWords: [ "hello(7)", "world(1)" ]
+        mostFrequentWords: mostFrequentWords
         
     };
 }
