@@ -21,7 +21,7 @@ function getStats(txt) {
     //number of Lines Calculation 
     var nLines = 0;
     if(nChars != 0){
-            nLines = txt.split('\n');
+            nLines = txt.split('\n').length;
     
         }
    
@@ -279,7 +279,7 @@ function getStats(txt) {
     return {
         nChars: nChars,
         nWords: nWords.length,
-        nLines: nLines.length,
+        nLines: nLines,
         nNonEmptyLines: nNonEmptyLines.length,
         averageWordLength: averageWordLength,
         maxLineLength: maxLineLength,
